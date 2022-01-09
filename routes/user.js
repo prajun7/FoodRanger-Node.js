@@ -8,7 +8,7 @@ const Review = require('../models/Review');
 router.get('/:id', async (req,res) => {
     try{
         const user = await User.findById(req.params.id);  
-        res.json(user);
+        res.json({message : user});
     }catch(err){
         res.json({message : err})
     }
@@ -27,10 +27,10 @@ router.get('/:id/orders', async(req,res)=>{
             // .populate will convert the restaurant_id or user_id field to it's exact content
             // Inside the .populate just pass the filed that we want
 
-        res.json(orders);
+        res.json({message : orders});
 
     }catch(err){
-        res.json({messsage : err});
+        res.json({message : err});
     }
 
 });
@@ -44,10 +44,10 @@ router.get('/:id/reviews', async(req,res)=>{
             .populate("user_id")
             .populate("restaurant_id");
 
-        res.json(reviews);
+        res.json({message : reviews});
 
     }catch(err){
-        res.json({messsage : err});
+        res.json({message : err});
     }
 
 });

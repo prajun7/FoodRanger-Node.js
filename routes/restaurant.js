@@ -16,7 +16,7 @@ router.post('/', (req, res) => {
     });
     restaurant.save()  // adds to the databse
     .then(data => {
-        res.json(data);
+        res.json({message : data});
     })
     .catch(err => {
         res.json({message : err});
@@ -37,7 +37,7 @@ router.patch('/:id', async(req,res) => {
                     area : req.body.area
             }}
         );
-        res.json(updatedRestaurant);
+        res.json({message : updatedRestaurant});
     }catch(err){
         res.json({message : err})
     }
@@ -48,7 +48,7 @@ router.patch('/:id', async(req,res) => {
 router.delete('/:id', async (req,res) => {
     try{
         const restaurant = await Restaurant.deleteOne({_id : req.params.id });  
-        res.json(restaurant);
+        res.json({message : restaurant});
 
     }catch(err){
         res.json({message : err});
@@ -58,11 +58,11 @@ router.delete('/:id', async (req,res) => {
 // Finds the restaurants with specific id
 // This route will go to, /restaurants/:id
 // Adding verify, which will make the private routes
-// router.get('/:id',verify, async (req,res) => {
-router.get('/:id', async (req,res) => {
+ router.get('/:id',verify, async (req,res) => {
+// router.get('/:id', async (req,res) => {
     try{
         const restaurant = await Restaurant.findById(req.params.id);  
-        res.json(restaurant);
+        res.json({message : restaurant});
     }catch(err){
         res.json({message : err})
     }
@@ -81,10 +81,10 @@ router.post('/:id/orders', async(req,res) => {
         });
 
         const savedOrder = await order.save();  //adds to the databse. Using await to wait
-        res.json(savedOrder);
+        res.json({message : savedOrder});
 
     }catch(err){
-        res.json({message:err})
+        res.json({message : err})
     }
 });
 
@@ -99,10 +99,10 @@ router.get('/:id/orders', async(req,res)=>{
             //.populate will give us the information about the restaurant and user
             // .populate will convert the restaurant_id or user_id field to it's exact content
             // Inside the .populate just pass the filed that we want  
-        res.json(orders);
+        res.json({message : orders});
 
     }catch(err){
-        res.json({messsage : err});
+        res.json({message : err});
     }
 
 });
@@ -116,10 +116,10 @@ router.get('/:id/orders/:userId', async(req,res)=>{
             .populate("user_id")
             .populate("restaurant_id");
 
-        res.json(orders);
+        res.json({message : orders});
 
     }catch(err){
-        res.json({messsage : err});
+        res.json({message : err});
     }
 });
 
@@ -135,10 +135,10 @@ router.post('/:id/reviews', async(req,res) => {
         });
 
         const savedReview = await review.save();  //adds to the databse. Using await to wait
-        res.json(savedReview);
+        res.json({message : savedReview});
 
     }catch(err){
-        res.json({message:err})
+        res.json({message : err})
     }
 });
 
@@ -150,7 +150,7 @@ router.get('/:id/reviews', async(req,res)=>{
             .populate("user_id")
             .populate("restaurant_id");
 
-        res.json(reviews);
+        res.json({message : reviews});
 
     }catch(err){
         res.json({messsage : err});
@@ -161,7 +161,7 @@ router.get('/:id/reviews', async(req,res)=>{
 router.delete('/:id/reviews/:reviewId', async(req,res) => {
     try{
         const review = await Review.remove({"_id" : req.params.reviewId});
-        res.json(review);
+        res.json({message : reviews});
     }catch(err){
         res.json({message: err});
     }

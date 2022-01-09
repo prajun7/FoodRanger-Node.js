@@ -36,7 +36,7 @@ router.get('/', async (req,res) => {
             return res.send("Please check the restaurant's name and address again");
         }
 
-        res.json(restaurant);
+        res.json({message : restaurant});
 
         
     }catch(err){
