@@ -2,6 +2,8 @@ const { application } = require("express");
 const express = require("express");
 const app = express();
 const mongoose = require('mongoose');
+const cors = require('cors');    //Need to add this cors, then only we will be able to 
+                                // fetch data from the below port in react
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -13,6 +15,7 @@ const searchRoute = require('./routes/search')
 
 //Middlewares
 app.use(express.json());
+app.use(cors());
 
 //Route Middlewares
 app.use('/auth',authRoute);
@@ -27,6 +30,6 @@ mongoose.connect(
     () => console.log("Connected to DB!")
 );
 
-app.listen(3000,() => console.log("Server running on port 3000"));
+app.listen(9000,() => console.log("Server running on port 9000"));
 
 //Change

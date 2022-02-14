@@ -14,18 +14,20 @@ router.post('/', (req, res) => {
         menu : req.body.menu,
         area : req.body.area
     });
-    restaurant.save()  // adds to the databse
+    restaurant.save()  // adds to the database
     .then(data => {
         res.json({message : data});
     })
     .catch(err => {
         res.json({message : err});
-    });
+    }).then(res => res.json());
+
+    //console.log(data);
 });
 
 //Updates all the provided movie Information
 //Algorithm to update,
-//First, find the movie by the id
+//First, find the restaurant by the id
 //Than use $set to update the field
 router.patch('/:id', async(req,res) => {
     try{
@@ -43,6 +45,29 @@ router.patch('/:id', async(req,res) => {
     }
 });
 
+// Updates the menu 
+// Algorithm to update,
+// First, find the restaurant by the id
+// Than use $push to add element inside the menu's array
+router.patch('/addmenu/:id', async(req,res) => {
+    try{
+        const updatedRestaurant = await Restaurant.findOneAndUpdate(
+            { _id : req.params.id},
+            {$push : {
+                menu: {
+                    name : req.body.name,
+                    unit_price : req.body.unit_price
+                }
+            }}
+        );
+        res.json({message : updatedRestaurant});
+    }catch(err){
+        res.json({message : err})
+    }
+});
+
+
+
 // Delete the restaurant
 // Get the restaurant id and remove it 
 router.delete('/:id', async (req,res) => {
@@ -58,8 +83,8 @@ router.delete('/:id', async (req,res) => {
 // Finds the restaurants with specific id
 // This route will go to, /restaurants/:id
 // Adding verify, which will make the private routes
- router.get('/:id',verify, async (req,res) => {
-// router.get('/:id', async (req,res) => {
+//  router.get('/:id',verify, async (req,res) => {
+ router.get('/:id', async (req,res) => {
     try{
         const restaurant = await Restaurant.findById(req.params.id);  
         res.json({message : restaurant});

@@ -16,7 +16,11 @@ const ReviewSchema = mongoose.Schema({
          service : Number,
          environment : Number,
          price : Number,
-     }]
+     }],
+     date : {
+        type: Date,
+        default: Date.now
+    }
  });
 
 module.exports = mongoose.model("Review",ReviewSchema);

@@ -3,6 +3,7 @@ const Restaurant = require('../models/Restaurant');
 
 // Finds the restaurants with given name or given area
 // This route will go to, /search?[name=name][&[area=area]]
+// In postman, search?name=Nami Restaurant&area=Nami Island
 router.get('/', async (req,res) => {
     try{
         let restaurantName = req.query.name;
