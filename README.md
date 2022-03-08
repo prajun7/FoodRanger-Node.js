@@ -12,5 +12,5 @@ The endpoints that I have implemented in my REST API includes the following,
 <img width="785" alt="Screen Shot 2022-01-09 at 1 57 47 PM" src="https://user-images.githubusercontent.com/67757251/148698843-74ef2044-a839-41b6-b0e3-b993e7f2c1ac.png">
 
 
-**The full project with the Backend and Frontend is in the FoodRanger_MERN_Stack Repository**
+**The full project with the Backend and Frontend is in the FoodRanger-MERN Repository**
 
